@@ -161,7 +161,7 @@ def base_url(http_port):
 
 
 @pytest.fixture
-def http_server(request, io_loop, _unused_port):
+def http_server(request, io_loop, _unused_port, app):
     """Start a tornado HTTP server.
 
     You must create an `app` fixture, which returns
@@ -170,8 +170,7 @@ def http_server(request, io_loop, _unused_port):
     Raises:
         FixtureLookupError: tornado application fixture not found
     """
-    http_app = request.getfuncargvalue(request.config.option.app_fixture)
-    server = tornado.httpserver.HTTPServer(http_app, io_loop=io_loop)
+    server = tornado.httpserver.HTTPServer(app, io_loop=io_loop)
     server.add_socket(_unused_port[0])
 
     def _stop():
