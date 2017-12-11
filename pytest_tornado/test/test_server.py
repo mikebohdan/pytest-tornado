@@ -15,7 +15,7 @@ application = tornado.web.Application([
 ])
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture()
 def app():
     return application
 
